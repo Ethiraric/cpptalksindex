@@ -1,3 +1,6 @@
 [submodule "deps/range-v3"]
 	path = deps/range-v3
 	url = https://github.com/ericniebler/range-v3/
+[submodule "deps/GSL"]
+	path = deps/GSL
+	url = https://github.com/microsoft/GSL
