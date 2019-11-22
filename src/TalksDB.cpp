@@ -107,4 +107,28 @@ std::vector<std::reference_wrapper<Talk const>> TalksDB::get(
   // much result to filter. Save the planet, save CPU cycles.
   return {};
 }
+
+std::vector<std::string> TalksDB::getSpeakerList() const
+{
+  auto ret = std::vector<std::string>{};
+  for (auto const& [speaker, _] : this->by_speaker)
+    ret.emplace_back(speaker);
+  return ret;
+}
+
+std::vector<std::string> TalksDB::getConferenceList() const
+{
+  auto ret = std::vector<std::string>{};
+  for (auto const& [conference, _] : this->by_conference)
+    ret.emplace_back(conference);
+  return ret;
+}
+
+std::vector<std::string> TalksDB::getTagList() const
+{
+  auto ret = std::vector<std::string>{};
+  for (auto const& [tag, _] : this->by_tag)
+    ret.emplace_back(tag);
+  return ret;
+}
 }
