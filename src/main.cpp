@@ -1,15 +1,15 @@
 #include <iostream>
 
 #include <cppti/TalksLoader.hh>
+#include <cppti/TalksDB.hh>
 
 int main(int, char const* const* argv)
 {
-  auto const etalks = cppti::TalksLoader::loadFrom(argv[1]);
-  if (etalks)
-  {
-    auto const& talks = etalks.value();
-    for (auto const& talk : talks)
-      std::cout << talk.speakers[0] << " - " << talk.title << std::endl;
-  }
-  return 0;
+  return cppti::TalksLoader::loadFrom(argv[1])
+      .and_then([&](auto talks) -> cppti::Expected<int> {
+        auto db = cppti::TalksDB{std::move(talks)};
+        db.index();
+        return 0;
+      })
+      .value_or(1);
 }

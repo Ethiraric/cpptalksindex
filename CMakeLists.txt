@@ -28,6 +28,7 @@ option(BUILD_TESTS "Build the tests" ON)
 
 add_executable(cpptalksindex
   src/main.cpp
+  src/TalksDB.cpp
   src/TalksLoader.cpp
 )
 target_compile_options(cpptalksindex PRIVATE ${WARNING_FLAGS})
