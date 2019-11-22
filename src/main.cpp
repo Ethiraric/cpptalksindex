@@ -3,12 +3,26 @@
 #include <cppti/TalksDB.hh>
 #include <cppti/TalksLoader.hh>
 
+namespace
+{
+template <typename T>
+using Expected = cppti::Expected<T>;
+using Talk = cppti::Talk;
+using TalksDB = cppti::TalksDB;
+
+Expected<TalksDB> buildDB(std::vector<Talk> talks)
+{
+  auto db = TalksDB{std::move(talks)};
+  db.index();
+  return db;
+}
+}
+
 int main(int, char const* const* argv)
 {
   return cppti::TalksLoader::loadFrom(argv[1])
-      .and_then([&](auto talks) -> cppti::Expected<int> {
-        auto db = cppti::TalksDB{std::move(talks)};
-        db.index();
+      .and_then(buildDB)
+      .and_then([&](auto db) -> Expected<int> {
         std::string speaker;
         std::getline(std::cin, speaker, ',');
         std::string conference;
