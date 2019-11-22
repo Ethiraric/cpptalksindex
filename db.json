@@ -4,48 +4,69 @@
     "title":"C++20:: C++ at 40",
     "conference":"CppCon",
     "year":2019,
-    "link":"https://www.youtube.com/watch?v=u_ij0YNkFUs"
+    "link":"https://www.youtube.com/watch?v=u_ij0YNkFUs",
+    "tags": [
+      "no-tags-yet"
+    ]
   },
   {
     "speakers":["Andrei Alexandrescu"],
     "title":"Speed Is Found In The Minds of People",
     "conference":"CppCon",
     "year":2019,
-    "link":"https://www.youtube.com/watch?v=FJJTYQYB1JQ"
+    "link":"https://www.youtube.com/watch?v=FJJTYQYB1JQ",
+    "tags": [
+      "no-tags-yet"
+    ]
   },
   {
     "speakers":["Ben Smith"],
     "title":"Applied WebAssembly: Compiling and Running C++ in Your Web Browser",
     "conference":"CppCon",
     "year":2019,
-    "link":"https://www.youtube.com/watch?v=5N4b-rU-OAA"
+    "link":"https://www.youtube.com/watch?v=5N4b-rU-OAA",
+    "tags": [
+      "no-tags-yet"
+    ]
   },
   {
     "speakers":["Jason Turner"],
     "title":"Great C++ is_trivial",
     "conference":"CppCon",
     "year":2019,
-    "link":"https://www.youtube.com/watch?v=ZxWjii99yao"
+    "link":"https://www.youtube.com/watch?v=ZxWjii99yao",
+    "tags": [
+      "no-tags-yet"
+     ]
   },
   {
     "speakers":["Jason Turner"],
     "title":"The Best Parts of C++",
     "conference":"CppCon",
     "year":2019,
-    "link":"https://www.youtube.com/watch?v=iz5Qx18H6lg"
+    "link":"https://www.youtube.com/watch?v=iz5Qx18H6lg",
+    "tags": [
+      "no-tags-yet"
+    ]
   },
   {
     "speakers":["Jason Turner"],
     "title":"Applied Best Practices",
     "conference":"CppCon",
     "year":2018,
-    "link":"https://www.youtube.com/watch?v=DHOlsEd0eDE"
+    "link":"https://www.youtube.com/watch?v=DHOlsEd0eDE",
+    "tags": [
+      "no-tags-yet"
+    ]
   },
   {
     "speakers":["Jason Turner"],
     "title":"C++ Code Smells",
     "conference":"NDC TechTown",
     "year":2019,
-    "link":"https://www.youtube.com/watch?v=nqfgOCU_Do4"
+    "link":"https://www.youtube.com/watch?v=nqfgOCU_Do4",
+    "tags": [
+      "clean-code"
+    ]
   }
 ]

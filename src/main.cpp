@@ -17,7 +17,7 @@ int main(int, char const* const* argv)
         std::cin >> year;
         std::cout << "Looking for: " << speaker << "," << conference << ","
                   << year << '\n';
-        auto const res = db.get(speaker, conference, year);
+        auto const res = db.get(speaker, conference, {}, year);
         for (auto const& talk : res)
           std::cout << "\t[" << talk.get().conference << "] "
                     << talk.get().speakers[0] << " - " << talk.get().title

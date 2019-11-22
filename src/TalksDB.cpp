@@ -12,6 +12,28 @@ std::string toConfIndex(std::string_view confname, int64_t year)
 {
   return std::string{confname} + std::to_string(year);
 }
+
+auto getConferenceFilter(std::string_view conference) noexcept
+{
+  return [=](Talk const& talk) {
+    return conference.empty() || talk.conference == conference;
+  };
+}
+
+auto getTagsFilter(gsl::span<std::string_view> tags) noexcept
+{
+  return [=](Talk const& talk) {
+    for (auto const tag : tags)
+      if (std::find(talk.tags.begin(), talk.tags.end(), tag) == talk.tags.end())
+        return false;
+    return true;
+  };
+}
+
+auto getYearFilter(int64_t year) noexcept
+{
+  return [=](Talk const& talk) { return year == 0 || talk.year == year; };
+}
 }
 
 TalksDB::TalksDB(std::vector<Talk>&& ptalks) : talks{std::move(ptalks)}
@@ -30,42 +52,59 @@ void TalksDB::index()
     // Index by conference
     this->by_conference[toConfIndex(talk.conference, talk.year)].emplace_back(
         talk);
+
+    // Index by tag
+    for (auto const& tag : talk.tags)
+      this->by_tag[tag].emplace_back(talk);
   }
 }
 
 std::vector<std::reference_wrapper<Talk const>> TalksDB::get(
     std::string_view speaker,
     std::string_view conference,
+    gsl::span<std::string_view> tags,
     int64_t year,
     int64_t maxresults) const
 {
-  auto ret = std::vector<std::reference_wrapper<Talk const>>{};
+  auto filter_year_and_convert = [&](auto range) {
+    auto ret = std::vector<std::reference_wrapper<Talk const>>{};
+    auto filtered_range = range | ranges::views::filter(getYearFilter(year)) |
+                          ranges::views::take(maxresults);
+    ranges::for_each(filtered_range,
+                     [&](auto const& talk) { ret.emplace_back(talk); });
+    return ret;
+  };
+
   if (!speaker.empty())
   {
     auto const speakerit = this->by_speaker.find(std::string{speaker});
     if (speakerit == this->by_speaker.end())
       return {};
     auto range = speakerit->second |
-                 ranges::views::filter([&](Talk const& talk) {
-                   return conference.empty() || talk.conference == conference;
-                 }) |
-                 ranges::views::filter([&](Talk const& talk) {
-                   return year == 0 || talk.year == year;
-                 }) |
-                 ranges::views::take(maxresults);
-    ranges::for_each(range, [&](auto const& talk) { ret.emplace_back(talk); });
+                 ranges::views::filter(getConferenceFilter(conference)) |
+                 ranges::views::filter(getTagsFilter(tags));
+    return filter_year_and_convert(range);
   }
-  else
+  else if (!conference.empty())
   {
     auto const confit = this->by_conference.find(std::string{conference});
     if (confit == this->by_conference.end())
       return {};
-    auto range = confit->second | ranges::views::filter([&](Talk const& talk) {
-                   return year == 0 || talk.year == year;
-                 }) |
-                 ranges::views::take(maxresults);
-    ranges::for_each(range, [&](auto const& talk) { ret.emplace_back(talk); });
+    auto range = confit->second | ranges::views::filter(getTagsFilter(tags));
+    return filter_year_and_convert(range);
   }
-  return ret;
+  else if (!tags.empty())
+  {
+    auto const tagit = this->by_tag.find(std::string{tags[0]});
+    if (tagit == this->by_tag.end())
+      return {};
+    auto range =
+        tagit->second | ranges::views::filter(getTagsFilter(tags.subspan(1)));
+    return filter_year_and_convert(range);
+  }
+
+  // If none of `speaker`, `conference` and `tags` are specified, there are too
+  // much result to filter. Save the planet, save CPU cycles.
+  return {};
 }
 }

@@ -32,7 +32,7 @@ add_executable(cpptalksindex
   src/TalksLoader.cpp
 )
 target_compile_options(cpptalksindex PRIVATE ${WARNING_FLAGS})
-target_link_libraries(cpptalksindex json expected range-v3)
+target_link_libraries(cpptalksindex json expected range-v3 GSL)
 target_include_directories(cpptalksindex PUBLIC include)
 set_property(TARGET cpptalksindex PROPERTY CXX_STANDARD 17)
 set_property(TARGET cpptalksindex PROPERTY CXX_STANDARD_REQUIRED ON)

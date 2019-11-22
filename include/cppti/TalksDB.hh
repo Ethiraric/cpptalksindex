@@ -4,6 +4,8 @@
 #include <functional>
 #include <unordered_map>
 
+#include <gsl/span>
+
 #include <cppti/Talk.hh>
 
 namespace cppti
@@ -24,6 +26,7 @@ public:
   std::vector<std::reference_wrapper<Talk const>> get(
       std::string_view speaker = {},
       std::string_view conference = {},
+      gsl::span<std::string_view> tags = {},
       int64_t year = 0,
       int64_t maxresults = 50) const;
 
@@ -35,6 +38,9 @@ private:
   std::unordered_map<std::string,
                      std::vector<std::reference_wrapper<Talk const>>>
       by_conference;
+  std::unordered_map<std::string,
+                     std::vector<std::reference_wrapper<Talk const>>>
+      by_tag;
 };
 }
 

@@ -13,6 +13,7 @@ struct Talk
   std::string conference;
   int64_t year;
   std::string link;
+  std::vector<std::string> tags;
 };
 using Talks = std::vector<Talk>;
 }
