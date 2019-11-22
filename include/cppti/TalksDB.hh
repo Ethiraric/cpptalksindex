@@ -21,6 +21,12 @@ public:
 
   void index();
 
+  std::vector<std::reference_wrapper<Talk const>> get(
+      std::string_view speaker = {},
+      std::string_view conference = {},
+      int64_t year = 0,
+      int64_t maxresults = 50) const;
+
 private:
   std::vector<Talk> talks;
   std::unordered_map<std::string,
