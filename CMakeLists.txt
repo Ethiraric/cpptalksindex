@@ -30,6 +30,7 @@ add_executable(cpptalksindex
   src/main.cpp
   src/TalksDB.cpp
   src/TalksLoader.cpp
+  src/Utils.cpp
 )
 target_compile_options(cpptalksindex PRIVATE ${WARNING_FLAGS})
 target_link_libraries(cpptalksindex json expected range-v3 GSL)

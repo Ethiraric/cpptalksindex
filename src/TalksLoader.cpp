@@ -2,8 +2,20 @@
 
 #include <fstream>
 
+#include <cppti/Utils.hh>
+
 namespace cppti
 {
+namespace
+{
+void canonicalizeTalk(Talk& talk)
+{
+  toSnakeCase(talk.conference);
+  for (auto& speaker : talk.speakers)
+    toSnakeCase(speaker);
+}
+}
+
 Expected<Talks> TalksLoader::loadFrom(std::string_view file)
 {
   auto ifs = std::ifstream{std::string{file}};
@@ -22,6 +34,8 @@ Expected<Talks> TalksLoader::loadFrom(std::istream& ifs)
   {
     ifs >> json;
     talks = json.get<Talks>();
+    for (auto& talk : talks)
+      canonicalizeTalk(talk);
   }
   catch (nlohmann::json::exception const& e)
   {
