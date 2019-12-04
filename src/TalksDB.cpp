@@ -20,7 +20,7 @@ auto getConferenceFilter(std::string_view conference) noexcept
   };
 }
 
-auto getTagsFilter(gsl::span<std::string_view> tags) noexcept
+auto getTagsFilter(gsl::span<std::string_view const> tags) noexcept
 {
   return [=](Talk const& talk) {
     for (auto const tag : tags)
@@ -62,7 +62,7 @@ void TalksDB::index()
 std::vector<std::reference_wrapper<Talk const>> TalksDB::get(
     std::string_view speaker,
     std::string_view conference,
-    gsl::span<std::string_view> tags,
+    gsl::span<std::string_view const> tags,
     int64_t year,
     int64_t maxresults) const
 {

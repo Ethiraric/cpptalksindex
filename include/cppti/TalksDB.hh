@@ -26,7 +26,7 @@ public:
   std::vector<std::reference_wrapper<Talk const>> get(
       std::string_view speaker = {},
       std::string_view conference = {},
-      gsl::span<std::string_view> tags = {},
+      gsl::span<std::string_view const> tags = {},
       int64_t year = 0,
       int64_t maxresults = 50) const;
 
