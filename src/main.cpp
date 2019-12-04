@@ -1,5 +1,8 @@
 #include <iostream>
 
+#include <httplib.h>
+
+#include <cppti/HTTPController.hh>
 #include <cppti/TalksDB.hh>
 #include <cppti/TalksLoader.hh>
 
@@ -18,24 +21,18 @@ Expected<TalksDB> buildDB(std::vector<Talk> talks)
 }
 }
 
-int main(int, char const* const* argv)
+int main(int argc, char const* const* argv)
 {
+  if (argc != 2)
+  {
+    std::cerr << "Usage: " << *argv << " <db.json>\n";
+    return 1;
+  }
   return cppti::TalksLoader::loadFrom(argv[1])
       .and_then(buildDB)
       .and_then([&](auto db) -> Expected<int> {
-        std::string speaker;
-        std::getline(std::cin, speaker, ',');
-        std::string conference;
-        std::getline(std::cin, conference, ',');
-        int64_t year{0};
-        std::cin >> year;
-        std::cout << "Looking for: " << speaker << "," << conference << ","
-                  << year << '\n';
-        auto const res = db.get(speaker, conference, {}, year);
-        for (auto const& talk : res)
-          std::cout << "\t[" << talk.get().conference << "] "
-                    << talk.get().speakers[0] << " - " << talk.get().title
-                    << '\n';
+        auto controller = cppti::HTTPController{db};
+        controller.listen("localhost", 8485);
         return 0;
       })
       .value_or(1);
