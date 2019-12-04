@@ -33,6 +33,7 @@ public:
   std::vector<std::string> getSpeakerList() const;
   std::vector<std::string> getConferenceList() const;
   std::vector<std::string> getTagList() const;
+  std::vector<std::int64_t> const& getYearList() const;
 
 private:
   std::vector<Talk> talks;
@@ -45,6 +46,7 @@ private:
   std::unordered_map<std::string,
                      std::vector<std::reference_wrapper<Talk const>>>
       by_tag;
+  std::vector<std::int64_t> years;
 };
 }
 

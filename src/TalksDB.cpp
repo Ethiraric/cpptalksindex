@@ -8,11 +8,6 @@ namespace cppti
 {
 namespace
 {
-std::string toConfIndex(std::string_view confname, int64_t year)
-{
-  return std::string{confname} + std::to_string(year);
-}
-
 auto getConferenceFilter(std::string_view conference) noexcept
 {
   return [=](Talk const& talk) {
@@ -50,12 +45,16 @@ void TalksDB::index()
       this->by_speaker[speaker].emplace_back(talk);
 
     // Index by conference
-    this->by_conference[toConfIndex(talk.conference, talk.year)].emplace_back(
-        talk);
+    this->by_conference[talk.conference].emplace_back(talk);
 
     // Index by tag
     for (auto const& tag : talk.tags)
       this->by_tag[tag].emplace_back(talk);
+
+    // List years
+    if (std::find(this->years.begin(), this->years.end(), talk.year) ==
+        this->years.end())
+      this->years.emplace_back(talk.year);
   }
 }
 
@@ -130,5 +129,10 @@ std::vector<std::string> TalksDB::getTagList() const
   for (auto const& [tag, _] : this->by_tag)
     ret.emplace_back(tag);
   return ret;
+}
+
+std::vector<std::int64_t> const& TalksDB::getYearList() const
+{
+  return this->years;
 }
 }
