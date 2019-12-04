@@ -27,6 +27,10 @@ private:
   using Response = httplib::Response;
 
   void routeTalks(Request const& req, Response& res);
+  void routeSpeakers(Request const& req, Response& res);
+  void routeConferences(Request const& req, Response& res);
+  void routeTags(Request const& req, Response& res);
+  void routeYears(Request const& req, Response& res);
 
   std::reference_wrapper<TalksDB const> talksdb;
   std::unique_ptr<httplib::Server> server;
