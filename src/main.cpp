@@ -16,7 +16,6 @@ using TalksDB = cppti::TalksDB;
 Expected<TalksDB> buildDB(std::vector<Talk> talks)
 {
   auto db = TalksDB{std::move(talks)};
-  db.index();
   return db;
 }
 }
