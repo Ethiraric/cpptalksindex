@@ -44,6 +44,9 @@ HTTPController::HTTPController(TalksDB const& db)
   this->server->Get(R"(/api/years)", [this](auto const& req, auto& res) {
     return this->routeYears(req, res);
   });
+  this->server->Get(R"(/api/filters)", [this](auto const& req, auto& res) {
+    return this->routeFilters(req, res);
+  });
   this->server->set_base_dir("./www");
 }
 
@@ -95,6 +98,16 @@ void HTTPController::routeYears(Request const&, Response& res)
 {
   auto const years = this->talksdb.get().getYearList();
   nlohmann::json const json = years;
+  res.set_content(json.dump(), "application/json");
+}
+
+void HTTPController::routeFilters(Request const&, Response& res)
+{
+  nlohmann::json json;
+  json["speakers"] = this->talksdb.get().getSpeakerList();
+  json["conferences"] = this->talksdb.get().getConferenceList();
+  json["tags"] = this->talksdb.get().getTagList();
+  json["years"] = this->talksdb.get().getYearList();
   res.set_content(json.dump(), "application/json");
 }
 }

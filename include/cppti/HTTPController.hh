@@ -31,6 +31,7 @@ private:
   void routeConferences(Request const& req, Response& res);
   void routeTags(Request const& req, Response& res);
   void routeYears(Request const& req, Response& res);
+  void routeFilters(Request const& req, Response& res);
 
   std::reference_wrapper<TalksDB const> talksdb;
   std::unique_ptr<httplib::Server> server;

@@ -2,20 +2,18 @@ var lastqueryinfo = {};
 
 // Load the dropdown lists.
 // Calls the API to get the data and creates an entry for each item.
-function loadX(url, id, buttonid) {
-  jQuery.get(url, function(items, status) {
-    for (i = 0; i < items.length; ++i) {
-      var item = items[i];
-      var node = document.createElement("a");
-      node.classList.add("dropdown-item")
-      node.id = `${id}-${item}`;
-      node.setAttribute("href", "#");
-      node.setAttribute("onclick",
-        `document.getElementById('${buttonid}').innerHTML = "${item}";`);
-      node.innerHTML = item;
-      document.getElementById(`${id}-dropdown-list`).appendChild(node);
-    }
-  });
+function fillDropdown(items, id, buttonid) {
+  for (i = 0; i < items.length; ++i) {
+    var item = items[i];
+    var node = document.createElement("a");
+    node.classList.add("dropdown-item")
+    node.id = `${id}-${item}`;
+    node.setAttribute("href", "#");
+    node.setAttribute("onclick",
+      `document.getElementById('${buttonid}').innerHTML = "${item}";`);
+    node.innerHTML = item;
+    document.getElementById(`${id}-dropdown-list`).appendChild(node);
+  }
 }
 
 // Display an error message when clicking on "Search" fails.
@@ -107,9 +105,10 @@ function onSearch() {
 
 window.onload = function() {
   // Load each dropdown
-  // TODO(ethiraric): add an API that combines all 4.
-  loadX('/api/speakers', 'speaker', 'dropdown-speaker');
-  loadX('/api/conferences', 'conference', 'dropdown-conference');
-  loadX('/api/years', 'year', 'dropdown-year');
-  loadX('/api/tags', 'tag', 'dropdown-tag');
+  jQuery.get('/api/filters', function(items, status) {
+    fillDropdown(items.speakers, 'speaker', 'dropdown-speaker');
+    fillDropdown(items.conferences, 'conference', 'dropdown-conference');
+    fillDropdown(items.years, 'year', 'dropdown-year');
+    fillDropdown(items.tags, 'tag', 'dropdown-tag');
+  })
 }
