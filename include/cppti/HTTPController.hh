@@ -35,6 +35,7 @@ private:
 
   std::reference_wrapper<TalksDB const> talksdb;
   std::unique_ptr<httplib::Server> server;
+  std::string filters_json;
 };
 }
 

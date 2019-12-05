@@ -48,6 +48,13 @@ HTTPController::HTTPController(TalksDB const& db)
     return this->routeFilters(req, res);
   });
   this->server->set_base_dir("./www");
+
+  nlohmann::json json;
+  json["speakers"] = this->talksdb.get().getSpeakerList();
+  json["conferences"] = this->talksdb.get().getConferenceList();
+  json["tags"] = this->talksdb.get().getTagList();
+  json["years"] = this->talksdb.get().getYearList();
+  this->filters_json = json.dump();
 }
 
 void HTTPController::listen(std::string_view host, std::uint16_t port)
@@ -103,11 +110,6 @@ void HTTPController::routeYears(Request const&, Response& res)
 
 void HTTPController::routeFilters(Request const&, Response& res)
 {
-  nlohmann::json json;
-  json["speakers"] = this->talksdb.get().getSpeakerList();
-  json["conferences"] = this->talksdb.get().getConferenceList();
-  json["tags"] = this->talksdb.get().getTagList();
-  json["years"] = this->talksdb.get().getYearList();
-  res.set_content(json.dump(), "application/json");
+  res.set_content(this->filters_json, "application/json");
 }
 }
