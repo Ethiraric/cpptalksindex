@@ -15,12 +15,24 @@ class TalksDB
 public:
   struct TalkRef
   {
-    std::vector<std::string_view> speakers;
+    struct Speaker
+    {
+      std::string_view id;
+      std::string_view display_name;
+    };
+
+    std::vector<Speaker> speakers;
     std::string title;
     std::string_view conference;
     int64_t year;
     std::string link;
     std::vector<std::string_view> tags;
+  };
+
+  struct Speaker
+  {
+    std::string id;
+    std::string display_name;
   };
 
   explicit TalksDB(std::vector<Talk>&& ptalks);
@@ -40,7 +52,7 @@ public:
       int64_t year = 0,
       int64_t maxresults = 50) const;
 
-  std::vector<std::string> const& getSpeakerList() const;
+  std::vector<Speaker> const& getSpeakerList() const;
   std::vector<std::string> const& getConferenceList() const;
   std::vector<std::string> const& getTagList() const;
   std::vector<std::int64_t> const& getYearList() const;
@@ -59,7 +71,7 @@ private:
                      std::vector<std::reference_wrapper<TalkRef const>>>
       by_tag;
 
-  std::vector<std::string> speakers;
+  std::vector<Speaker> speakers;
   std::vector<std::string> conferences;
   std::vector<std::string> tags;
   std::vector<std::int64_t> years;
@@ -68,7 +80,23 @@ private:
 
 namespace nlohmann
 {
+void to_json(json& j, cppti::TalksDB::TalkRef::Speaker const& x);
+void to_json(json& j, cppti::TalksDB::Speaker const& x);
 void to_json(json& j, cppti::TalksDB::TalkRef const& x);
+
+inline void to_json(json& j, cppti::TalksDB::TalkRef::Speaker const& x)
+{
+  j = json::object();
+  j["id"] = x.id;
+  j["display_name"] = x.display_name;
+}
+
+inline void to_json(json& j, cppti::TalksDB::Speaker const& x)
+{
+  j = json::object();
+  j["id"] = x.id;
+  j["display_name"] = x.display_name;
+}
 
 inline void to_json(json& j, cppti::TalksDB::TalkRef const& x)
 {

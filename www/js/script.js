@@ -2,16 +2,10 @@ var lastqueryinfo = {};
 
 // Load the dropdown lists.
 // Calls the API to get the data and creates an entry for each item.
-function fillDropdown(items, id, buttonid) {
+function fillDropdown(items, id, buttonid, element_creator) {
   for (i = 0; i < items.length; ++i) {
     var item = items[i];
-    var node = document.createElement("a");
-    node.classList.add("dropdown-item")
-    node.id = `${id}-${item}`;
-    node.setAttribute("href", "#");
-    node.setAttribute("onclick",
-      `document.getElementById('${buttonid}').innerHTML = "${item}";`);
-    node.innerHTML = item;
+    var node = element_creator(id, item, buttonid);
     document.getElementById(`${id}-dropdown-list`).appendChild(node);
   }
 }
@@ -51,7 +45,7 @@ function showResults(talks) {
     outerdiv.appendChild(loadThumbnail(talk.link));
     var descdiv = document.createElement("div");
     descdiv.classList.add("ml-3", "align-self-center");
-    descdiv.innerHTML = `<b>${talk.speakers.join(', ')} - ${talk.title}</b></br>
+    descdiv.innerHTML = `<b>${talk.speakers.map(x => x.display_name).join(', ')} - ${talk.title}</b></br>
           ${talk.conference} - ${talk.year} </br>
           <a href="${talk.link}">${talk.link}</a>`
     outerdiv.appendChild(descdiv);
@@ -62,7 +56,7 @@ function showResults(talks) {
 // Build the URL, call it and display results.
 function onSearch() {
   var queryinfo = {
-    speaker: document.getElementById('dropdown-speaker').innerHTML.trim(),
+    speaker: document.getElementById('dropdown-speaker').getAttribute("speaker-id"),
     conference: document.getElementById('dropdown-conference').innerHTML
     .trim(),
     year: document.getElementById('dropdown-year').innerHTML.trim(),
@@ -103,12 +97,39 @@ function onSearch() {
   });
 }
 
+function defaultDropdownElementCreator(id, item, buttonid) {
+  var node = document.createElement("a");
+  node.classList.add("dropdown-item")
+  node.id = `${id}-${item}`;
+  node.setAttribute("href", "#");
+  node.setAttribute("onclick",
+    `document.getElementById('${buttonid}').innerHTML = "${item}";`);
+  node.innerHTML = item;
+  return node;
+}
+
+function updateSpeakerDropdown(speaker, id) {
+  var dropdown = document.getElementById('dropdown-speaker');
+  dropdown.setAttribute("speaker-id", id);
+  dropdown.innerHTML = speaker;
+}
+
+function speakerDropdownElementCreator(id, speaker, buttonid) {
+  var node = document.createElement("a");
+  node.classList.add("dropdown-item")
+  node.id = `${id}-${speaker.id}`;
+  node.setAttribute("href", "#");
+  node.setAttribute("onclick", `updateSpeakerDropdown('${speaker.display_name}', '${speaker.id}');`);
+  node.innerHTML = speaker.display_name;
+  return node;
+}
+
 window.onload = function() {
   // Load each dropdown
   jQuery.get('/api/filters', function(items, status) {
-    fillDropdown(items.speakers, 'speaker', 'dropdown-speaker');
-    fillDropdown(items.conferences, 'conference', 'dropdown-conference');
-    fillDropdown(items.years, 'year', 'dropdown-year');
-    fillDropdown(items.tags, 'tag', 'dropdown-tag');
+    fillDropdown(items.speakers, 'speaker', 'dropdown-speaker', speakerDropdownElementCreator);
+    fillDropdown(items.conferences, 'conference', 'dropdown-conference', defaultDropdownElementCreator);
+    fillDropdown(items.years, 'year', 'dropdown-year', defaultDropdownElementCreator);
+    fillDropdown(items.tags, 'tag', 'dropdown-tag', defaultDropdownElementCreator);
   })
 }

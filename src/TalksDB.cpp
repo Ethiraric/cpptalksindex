@@ -6,6 +6,8 @@
 #include <range/v3/view/filter.hpp>
 #include <range/v3/view/take.hpp>
 
+#include <cppti/Utils.hh>
+
 namespace cppti
 {
 namespace
@@ -66,8 +68,13 @@ TalksDB::TalksDB(std::vector<Talk>&& ptalks)
 
 void TalksDB::index(std::vector<Talk>&& ptalks)
 {
-  this->speakers = listAllUnique<std::string>(
-      ptalks, [&](auto const& talk) { return talk.speakers; });
+  for (auto&& speaker : listAllUnique<std::string>(
+           ptalks, [&](auto const& talk) { return talk.speakers; }))
+  {
+    auto id = speaker;
+    toSnakeCase(id);
+    this->speakers.emplace_back(Speaker{std::move(id), std::move(speaker)});
+  }
   this->conferences = listAllUnique<std::string>(
       ptalks, [&](auto const& talk) { return talk.conference; });
   this->tags = listAllUnique<std::string>(
@@ -85,7 +92,11 @@ void TalksDB::index(std::vector<Talk>&& ptalks)
     auto const& talkref = this->talks.emplace_back(this->talkRefFromTalk(talk));
     // Index by speaker
     for (auto const& speaker : talk.speakers)
-      this->by_speaker[speaker].emplace_back(talkref);
+    {
+      auto id = speaker;
+      toSnakeCase(id);
+      this->by_speaker[id].emplace_back(talkref);
+    }
 
     // Index by conference
     this->by_conference[talk.conference].emplace_back(talkref);
@@ -146,7 +157,7 @@ std::vector<std::reference_wrapper<TalksDB::TalkRef const>> TalksDB::get(
   return {};
 }
 
-std::vector<std::string> const& TalksDB::getSpeakerList() const
+std::vector<TalksDB::Speaker> const& TalksDB::getSpeakerList() const
 {
   return this->speakers;
 }
@@ -172,8 +183,17 @@ TalksDB::TalkRef TalksDB::talkRefFromTalk(Talk const& talk)
 
   ret.speakers.reserve(talk.speakers.size());
   for (auto const& speaker : talk.speakers)
-    ret.speakers.emplace_back(*std::lower_bound(
-        this->speakers.begin(), this->speakers.end(), speaker));
+  {
+    auto id = speaker;
+    toSnakeCase(id);
+    auto const& index_speaker = *std::lower_bound(
+        this->speakers.begin(),
+        this->speakers.end(),
+        id,
+        [&](auto const& hay, auto const& needle) { return hay.id < needle; });
+    ret.speakers.emplace_back(
+        TalkRef::Speaker{index_speaker.id, index_speaker.display_name});
+  }
 
   ret.conference = *std::lower_bound(
       this->conferences.begin(), this->conferences.end(), talk.conference);
