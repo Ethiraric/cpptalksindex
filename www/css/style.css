@@ -1,7 +1,10 @@
-div {
 .talkresult {
   padding-bottom: 20px;
 }
 .talkdesc {
   padding-left: 20px;
+}
+body {
+  background: #222222;
+  color: white;
 }
