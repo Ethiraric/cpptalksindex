@@ -27,8 +27,17 @@ function loadThumbnail(link) {
   imagenode.setAttribute("src", uri);
   var anode = document.createElement("a");
   anode.setAttribute("href", link);
+  anode.classList.add("align-self-center");
   anode.appendChild(imagenode);
   return anode;
+}
+
+// Get HTML to display the tags from a talk
+function getTalkTagHTML(tags) {
+  const tagbegin =
+    '<span class="rounded-pill border" style="border-width:2px !important;">&nbsp;';
+  const tagend = '&nbsp;</span>';
+  return tagbegin + tags.join(tagend + '&nbsp;' + tagbegin) + tagend;
 }
 
 // Fill the searchresults div.
@@ -45,9 +54,11 @@ function showResults(talks) {
     outerdiv.appendChild(loadThumbnail(talk.link));
     var descdiv = document.createElement("div");
     descdiv.classList.add("ml-3", "align-self-center");
-    descdiv.innerHTML = `<b>${talk.speakers.map(x => x.display_name).join(', ')} - ${talk.title}</b></br>
-          ${talk.conference} - ${talk.year} </br>
-          <a href="${talk.link}">${talk.link}</a>`
+    descdiv.innerHTML =
+      `<b>${talk.speakers.map(x => x.display_name).join(', ')} - ${talk.title}</b></br>
+       ${talk.conference} - ${talk.year} </br>
+       <a href="${talk.link}">${talk.link} </br></a>
+       ${getTalkTagHTML(talk.tags)}`
     outerdiv.appendChild(descdiv);
     node.appendChild(outerdiv);
   }
@@ -56,9 +67,10 @@ function showResults(talks) {
 // Build the URL, call it and display results.
 function onSearch() {
   var queryinfo = {
-    speaker: document.getElementById('dropdown-speaker').getAttribute("speaker-id"),
+    speaker: document.getElementById('dropdown-speaker').getAttribute(
+      "speaker-id"),
     conference: document.getElementById('dropdown-conference').innerHTML
-    .trim(),
+      .trim(),
     year: document.getElementById('dropdown-year').innerHTML.trim(),
     tag: document.getElementById('dropdown-tag').innerHTML.trim()
   };
@@ -119,7 +131,8 @@ function speakerDropdownElementCreator(id, speaker, buttonid) {
   node.classList.add("dropdown-item")
   node.id = `${id}-${speaker.id}`;
   node.setAttribute("href", "#");
-  node.setAttribute("onclick", `updateSpeakerDropdown('${speaker.display_name}', '${speaker.id}');`);
+  node.setAttribute("onclick",
+    `updateSpeakerDropdown('${speaker.display_name}', '${speaker.id}');`);
   node.innerHTML = speaker.display_name;
   return node;
 }
@@ -127,9 +140,13 @@ function speakerDropdownElementCreator(id, speaker, buttonid) {
 window.onload = function() {
   // Load each dropdown
   jQuery.get('/api/filters', function(items, status) {
-    fillDropdown(items.speakers, 'speaker', 'dropdown-speaker', speakerDropdownElementCreator);
-    fillDropdown(items.conferences, 'conference', 'dropdown-conference', defaultDropdownElementCreator);
-    fillDropdown(items.years, 'year', 'dropdown-year', defaultDropdownElementCreator);
-    fillDropdown(items.tags, 'tag', 'dropdown-tag', defaultDropdownElementCreator);
+    fillDropdown(items.speakers, 'speaker', 'dropdown-speaker',
+      speakerDropdownElementCreator);
+    fillDropdown(items.conferences, 'conference', 'dropdown-conference',
+      defaultDropdownElementCreator);
+    fillDropdown(items.years, 'year', 'dropdown-year',
+      defaultDropdownElementCreator);
+    fillDropdown(items.tags, 'tag', 'dropdown-tag',
+      defaultDropdownElementCreator);
   })
 }
