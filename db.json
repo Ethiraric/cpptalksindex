@@ -1,12 +1,12 @@
 [
   {
     "speakers":["Bjarne Stroustrup"],
-    "title":"C++20:: C++ at 40",
+    "title":"C++20: C++ at 40",
     "conference":"CppCon",
     "year":2019,
     "link":"https://www.youtube.com/watch?v=u_ij0YNkFUs",
     "tags": [
-      "no-tags-yet"
+      "c++-design"
     ]
   },
   {
@@ -16,7 +16,8 @@
     "year":2019,
     "link":"https://www.youtube.com/watch?v=FJJTYQYB1JQ",
     "tags": [
-      "no-tags-yet"
+      "performance",
+      "algorithm-design"
     ]
   },
   {
@@ -25,6 +26,130 @@
     "conference":"CppCon",
     "year":2019,
     "link":"https://www.youtube.com/watch?v=5N4b-rU-OAA",
+    "tags": [
+      "webassembly"
+    ]
+  },
+  {
+    "speakers":["Sean Parent"],
+    "title":"Better Code: Relationships",
+    "conference":"CppCon",
+    "year":2019,
+    "link":"https://www.youtube.com/watch?v=ejF6qqohp3M",
+    "tags": [
+      "code-architecture"
+    ]
+  },
+  {
+    "speakers":["Herb Sutter"],
+    "title":"De-fragmenting C++: Making Exceptions and RTTI More Affordable and Usable",
+    "conference":"CppCon",
+    "year":2019,
+    "link":"https://www.youtube.com/watch?v=ARYP83yNAWk",
+    "tags": [
+      "error-handling",
+      "embededd"
+    ]
+  },
+  {
+    "speakers":["Dvir Yitzchaki"],
+    "title":"Range Algorithms, Views and Actions - A Comprehensive Guide",
+    "conference":"CppCon",
+    "year":2019,
+    "link":"https://www.youtube.com/watch?v=qQtS50ZChN8",
+    "tags": [
+      "ranges",
+      "algorithms"
+    ]
+  },
+  {
+    "speakers":["Jeff Garland"],
+    "title":"From STL to Ranges: Using Ranges Effectively",
+    "conference":"CppCon",
+    "year":2019,
+    "link":"https://www.youtube.com/watch?v=vJ290qlAbbw",
+    "tags": [
+      "ranges"
+    ]
+  },
+  {
+    "speakers":["Jussi Pakkanen"],
+    "title":"Behind the Scenes of a C++ Build System",
+    "conference":"CppCon",
+    "year":2019,
+    "link":"https://www.youtube.com/watch?v=34KzT2yvQuM",
+    "tags": [
+      "build-systems"
+    ]
+  },
+  {
+    "speakers":["Jorg Brown"],
+    "title":"Reducing Template Compilation Overhead, Using C++11, 14, 17, and 20.",
+    "conference":"CppCon",
+    "year":2019,
+    "link":"https://www.youtube.com/watch?v=TyiiNVA1syk",
+    "tags": [
+      "metaprogramming",
+      "performance"
+    ]
+  },
+  {
+    "speakers":["Inbal Levi"],
+    "title":"Back to Basics: Virtual Dispatch and its Alternatives",
+    "conference":"CppCon",
+    "year":2019,
+    "link":"https://www.youtube.com/watch?v=jBnIMEb2GhA",
+    "tags": [
+      "performance",
+      "metaprogramming"
+    ]
+  },
+  {
+    "speakers":["Chris Di Bella"],
+    "title":"What a View! Building Your Own (Lazy) Range Adaptors (part 1 of 2)",
+    "conference":"CppCon",
+    "year":2019,
+    "link":"https://www.youtube.com/watch?v=YWayW5ePpkY",
+    "tags": [
+      "ranges"
+    ]
+  },
+  {
+    "speakers":["Patrice Roy"],
+    "title":"Some Programming Myths Revisited",
+    "conference":"CppCon",
+    "year":2019,
+    "link":"https://www.youtube.com/watch?v=KNqRjzSlUVo",
+    "tags": [
+      "no-tags-yet"
+    ]
+  },
+  {
+    "speakers":["Chris Di Bella"],
+    "title":"What a View! Building Your Own (Lazy) Range Adaptors (part 2 of 2)",
+    "conference":"CppCon",
+    "year":2019,
+    "link":"https://www.youtube.com/watch?v=g-F280_AQp8",
+    "tags": [
+      "no-tags-yet"
+    ]
+  },
+  {
+    "speakers":["Matthew Fleming"],
+    "title":"The Smart Pointers I Wish I Had",
+    "conference":"CppCon",
+    "year":2019,
+    "link":"https://www.youtube.com/watch?v=CKCR5eFVrmc",
+    "tags": [
+      "no-tags-yet"
+    ]
+  },
+  {
+    "speakers":["Greg Law"],
+    "title":"Modern Linux C++ debugging tools - under the covers",
+    "conference":"CppCon",
+    "year":2019,
+    "link":"https://www.youtube.com/watch?v=WoRmXjVxuFQ",
     "tags": [
       "no-tags-yet"
     ]
@@ -38,6 +163,231 @@
     "tags": [
       "no-tags-yet"
      ]
+  },
+  {
+    "speakers":["Tristan Brindle"],
+    "title":"An Overview of Standard Ranges",
+    "conference":"CppCon",
+    "year":2019,
+    "link":"https://www.youtube.com/watch?v=SYLgG7Q5Zws",
+    "tags": [
+      "no-tags-yet"
+    ]
+  },
+  {
+    "speakers":["Klaus Iglberger"],
+    "title":"Back to Basics: Move Semantics (part 1 of 2)",
+    "conference":"CppCon",
+    "year":2019,
+    "link":"https://www.youtube.com/watch?v=St0MNEU5b0o",
+    "tags": [
+      "no-tags-yet"
+    ]
+  },
+  {
+    "speakers":["Klaus Iglberger"],
+    "title":"Back to Basics: Move Semantics (part 2 of 2)",
+    "conference":"CppCon",
+    "year":2019,
+    "link":"https://www.youtube.com/watch?v=pIzaZbKUw2s",
+    "tags": [
+      "no-tags-yet"
+    ]
+  },
+  {
+    "speakers":["Nicolai Josuttis"],
+    "title":"When C++ Style Guides Contradict",
+    "conference":"CppCon",
+    "year":2019,
+    "link":"https://www.youtube.com/watch?v=WRQ1xqYBKgc",
+    "tags": [
+      "no-tags-yet"
+    ]
+  },
+  {
+    "speakers":["Dietmar Kuhl"],
+    "title":"From Algorithn to Generic, Parallel Code",
+    "conference":"CppCon",
+    "year":2019,
+    "link":"https://www.youtube.com/watch?v=RrG_A7Ybzo4",
+    "tags": [
+      "no-tags-yet"
+    ]
+  },
+  {
+    "speakers":["Dan Saks"],
+    "title":"Back to Basics: Const as a Promise",
+    "conference":"CppCon",
+    "year":2019,
+    "link":"https://www.youtube.com/watch?v=NZtr93iL3R0",
+    "tags": [
+      "no-tags-yet"
+    ]
+  },
+  {
+    "speakers":["Hana Dusikova"],
+    "title":"A State of Compile Time Regular Expressions",
+    "conference":"CppCon",
+    "year":2019,
+    "link":"https://www.youtube.com/watch?v=8dKWdJzPwHw",
+    "tags": [
+      "no-tags-yet"
+    ]
+  },
+  {
+    "speakers":["Fedor Pikus"],
+    "title":"Back to Basics: Test-driven Development",
+    "conference":"CppCon",
+    "year":2019,
+    "link":"https://www.youtube.com/watch?v=RoYljVOj2H8",
+    "tags": [
+      "no-tags-yet"
+    ]
+  },
+  {
+    "speakers":["Robert Schumacher"],
+    "title":"How to Herd 1,000 Libraries",
+    "conference":"CppCon",
+    "year":2019,
+    "link":"https://www.youtube.com/watch?v=Lb3hlLlHTrs",
+    "tags": [
+      "no-tags-yet"
+    ]
+  },
+  {
+    "speakers":["Samy Al Bahra", "Paul Khuong"],
+    "title":"Abusing Your Memory Model for Fun and Profit",
+    "conference":"CppCon",
+    "year":2019,
+    "link":"https://www.youtube.com/watch?v=N07tM7xWF1U",
+    "tags": [
+      "no-tags-yet"
+    ]
+  },
+  {
+    "speakers":["Gabor Horvath", "Matthias Gehre"],
+    "title":"Lifetime analysis for everyone",
+    "conference":"CppCon",
+    "year":2019,
+    "link":"https://www.youtube.com/watch?v=d67kfSnhbpA",
+    "tags": [
+      "no-tags-yet"
+    ]
+  },
+  {
+    "speakers":["Kostas Kyrimis"],
+    "title":"ADL: introduction in name taxonomy, customization points and use cases",
+    "conference":"CppCon",
+    "year":2019,
+    "link":"https://www.youtube.com/watch?v=u1iewQYkYGE",
+    "tags": [
+      "no-tags-yet"
+    ]
+  },
+  {
+    "speakers":["Daniel Hanson"],
+    "title":"Leveraging Modern C++ in Quantitative Finance",
+    "conference":"CppCon",
+    "year":2019,
+    "link":"https://www.youtube.com/watch?v=NeGO8lWDgyo",
+    "tags": [
+      "no-tags-yet"
+    ]
+  },
+  {
+    "speakers":["Mark Isaacson"],
+    "title":"Making Testing C++ Binaries Practical @ Facebook Scale: A CI Story",
+    "conference":"CppCon",
+    "year":2019,
+    "link":"https://www.youtube.com/watch?v=p7xdNjdtojU",
+    "tags": [
+      "no-tags-yet"
+    ]
+  },
+  {
+    "speakers":["Miro Knejp"],
+    "title":"Non-conforming C++: the Secrets the Committee Is Hiding From You",
+    "conference":"CppCon",
+    "year":2019,
+    "link":"https://www.youtube.com/watch?v=IAdLwUXRUvg",
+    "tags": [
+      "no-tags-yet"
+    ]
+  },
+  {
+    "speakers":["Chandler Carruth", "Titus Winters"],
+    "title":"What is C++",
+    "conference":"CppCon",
+    "year":2019,
+    "link":"https://www.youtube.com/watch?v=LJh5QCV4wDg",
+    "tags": [
+      "future",
+      "c++-design"
+    ]
+  },
+  {
+    "speakers":["Mathieu Ropert"],
+    "title":"This Videogame Programmer Used the STL and You Will Never Guess What Happened Next",
+    "conference":"CppCon",
+    "year":2019,
+    "link":"https://www.youtube.com/watch?v=",
+    "tags": [
+      "performance",
+      "algorithm-design"
+    ]
+  },
+  {
+    "speakers":["Matt Godbolt"],
+    "title":"Path Tracing Three Ways: A Study of C++ Style",
+    "conference":"CppCon",
+    "year":2019,
+    "link":"https://www.youtube.com/watch?v=HG6c4Kwbv4I",
+    "tags": [
+      "performance",
+      "algorithm-design"
+    ]
+  },
+  {
+    "speakers":["Titus Winters"],
+    "title":"Maintainability and Refactoring Impact of Higher-Level Design Features",
+    "conference":"CppCon",
+    "year":2019,
+    "link":"https://www.youtube.com/watch?v=v_yzLe-wnfk",
+    "tags": [
+      "refactoring",
+      "code-architecture"
+    ]
+  },
+  {
+    "speakers":["Bob Steagall"],
+    "title":"Back to Basics: The Abstract Machine",
+    "conference":"CppCon",
+    "year":2020,
+    "link":"https://www.youtube.com/watch?v=ZAji7PkXaKY",
+    "tags": [
+      "c++-internals"
+    ]
+  },
+  {
+    "speakers":["Jody Hagins"],
+    "title":"Template Metaprogramming: Type Trais (part 1 of 2)",
+    "conference":"CppCon",
+    "year":2020,
+    "link":"https://www.youtube.com/watch?v=tiAVWcjIF6o",
+    "tags": [
+      "beginner",
+      "metaprogramming"
+    ]
+  },
+  {
+    "speakers":["sample_speaker"],
+    "title":"sample_title",
+    "conference":"CppCon",
+    "year":2019,
+    "link":"https://www.youtube.com/watch?v=",
+    "tags": [
+      "no-tags-yet"
+    ]
   },
   {
     "speakers":["Jason Turner"],
