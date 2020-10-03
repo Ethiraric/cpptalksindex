@@ -34,5 +34,6 @@ int main(int argc, char const* const* argv)
         controller.listen("localhost", 8485);
         return 0;
       })
+      .map_error([&](auto e) { std::cout << e.what << std::endl; })
       .value_or(1);
 }
