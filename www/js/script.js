@@ -85,6 +85,13 @@ function onSearch() {
     setFilterError("Please select at least one filter.");
     return;
   }
+  if (queryinfo.speaker == "Speaker" && queryinfo.conference == "Conference" &&
+    queryinfo.tag == "Tag") // just a "year" filter, too many results
+  {
+    setFilterError("Please narrow down with more than a year.");
+    return;
+  }
+
   setFilterError("");
   var url = '/api/talks?'
   var needsamp = false;
