@@ -1,6 +1,7 @@
 #include <cppti/HTTPController.hh>
 
 #include <algorithm>
+#include <iostream>
 #include <vector>
 
 namespace cppti
@@ -69,6 +70,8 @@ void HTTPController::routeTalks(Request const& req, Response& res)
   auto const raw_tags = req.get_param_value("tags");
   auto const tags = splitTags(raw_tags);
   auto const rawyear = req.get_param_value("year");
+  std::cout << "speaker='" << speaker << "', conference='" << conference
+            << "', tags='" << raw_tags << "', year=" << rawyear << std::endl;
   if (!std::all_of(rawyear.begin(), rawyear.end(), [&](char c) {
         return std::isdigit(c);
       }))
