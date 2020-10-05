@@ -96,19 +96,19 @@ function onSearch() {
   var url = '/api/talks?'
   var needsamp = false;
 
-  if (queryinfo.speaker != "Speaker") {
+  if (queryinfo.speaker != "Speaker (Any)") {
     url += 'speaker=' + queryinfo.speaker;
     needsamp = true;
   }
-  if (queryinfo.conference != "Conference") {
+  if (queryinfo.conference != "Conference (Any)") {
     url += (needsamp ? '&' : '') + "conference=" + queryinfo.conference;
     needsamp = true;
   }
-  if (queryinfo.year != "Year") {
+  if (queryinfo.year != "Year (Any)") {
     url += (needsamp ? '&' : '') + "year=" + queryinfo.year;
     needsamp = true;
   }
-  if (queryinfo.tag != "Tag")
+  if (queryinfo.tag != "Tag (Any)")
     url += (needsamp ? '&' : '') + "tags=" + queryinfo.tag;
   lastqueryinfo = queryinfo;
   jQuery.get(url, function(talks, status) {
