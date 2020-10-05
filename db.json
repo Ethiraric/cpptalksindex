@@ -330,7 +330,7 @@
     "title":"This Videogame Programmer Used the STL and You Will Never Guess What Happened Next",
     "conference":"CppCon",
     "year":2019,
-    "link":"https://www.youtube.com/watch?v=",
+    "link":"https://www.youtube.com/watch?v=6hC9IxqdDDw",
     "tags": [
       "performance",
       "algorithm-design"
@@ -375,18 +375,8 @@
     "year":2020,
     "link":"https://www.youtube.com/watch?v=tiAVWcjIF6o",
     "tags": [
-      "beginner",
+      "introductory",
       "metaprogramming"
-    ]
-  },
-  {
-    "speakers":["sample_speaker"],
-    "title":"sample_title",
-    "conference":"CppCon",
-    "year":2019,
-    "link":"https://www.youtube.com/watch?v=",
-    "tags": [
-      "no-tags-yet"
     ]
   },
   {
