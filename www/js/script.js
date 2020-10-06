@@ -74,19 +74,29 @@ function onSearch() {
     year: document.getElementById('dropdown-year').innerHTML.trim(),
     tag: document.getElementById('dropdown-tag').innerHTML.trim()
   };
+
+  if (queryinfo.speaker == "Speaker" || queryinfo.speaker == "Speaker (Any)")
+    queryinfo.speaker = null;
+  if (queryinfo.conference == "Conference" || queryinfo.conference == "Conference (Any)")
+    queryinfo.conference = null;
+  if (queryinfo.year == "Year" || queryinfo.year == "Year (Any)")
+    queryinfo.year = null;
+  if (queryinfo.tag == "Tag" || queryinfo.tag == "Tag (Any)")
+    queryinfo.tag = null;
+
   if (JSON.stringify(queryinfo) == JSON.stringify(lastqueryinfo)) {
     setFilterError("Same query!");
     return;
   }
 
-  if (queryinfo.speaker == "Speaker" && queryinfo.conference == "Conference" &&
-    queryinfo.year == "Year" && queryinfo.tag == "Tag") // no filter
+  if (queryinfo.speaker == null && queryinfo.conference == null &&
+    queryinfo.year == null && queryinfo.tag == null) // no filter
   {
     setFilterError("Please select at least one filter.");
     return;
   }
-  if (queryinfo.speaker == "Speaker" && queryinfo.conference == "Conference" &&
-    queryinfo.tag == "Tag") // just a "year" filter, too many results
+  if (queryinfo.speaker == null && queryinfo.conference == null&&
+    queryinfo.tag == null) // just a "year" filter, too many results
   {
     setFilterError("Please narrow down with more than a year.");
     return;
@@ -96,19 +106,19 @@ function onSearch() {
   var url = '/api/talks?'
   var needsamp = false;
 
-  if (queryinfo.speaker != "Speaker (Any)") {
+  if (queryinfo.speaker != null) {
     url += 'speaker=' + queryinfo.speaker;
     needsamp = true;
   }
-  if (queryinfo.conference != "Conference (Any)") {
+  if (queryinfo.conference != null) {
     url += (needsamp ? '&' : '') + "conference=" + queryinfo.conference;
     needsamp = true;
   }
-  if (queryinfo.year != "Year (Any)") {
+  if (queryinfo.year != null) {
     url += (needsamp ? '&' : '') + "year=" + queryinfo.year;
     needsamp = true;
   }
-  if (queryinfo.tag != "Tag (Any)")
+  if (queryinfo.tag != null)
     url += (needsamp ? '&' : '') + "tags=" + queryinfo.tag;
   lastqueryinfo = queryinfo;
   jQuery.get(url, function(talks, status) {
