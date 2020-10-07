@@ -85,7 +85,6 @@ function onSearch() {
     queryinfo.tag = null;
 
   if (JSON.stringify(queryinfo) == JSON.stringify(lastqueryinfo)) {
-    setFilterError("Same query!");
     return;
   }
 
@@ -124,6 +123,15 @@ function onSearch() {
   jQuery.get(url, function(talks, status) {
     showResults(talks);
   });
+}
+
+function onClearFilters() {
+    document.getElementById('dropdown-speaker').setAttribute("speaker-id", "Speaker");
+    document.getElementById('dropdown-speaker').innerHTML = "Speaker (Any)";
+    document.getElementById('dropdown-conference').innerHTML = "Conference (Any)";
+    document.getElementById('dropdown-year').innerHTML = "Year (Any)";
+    document.getElementById('dropdown-tag').innerHTML = "Tag (Any)";
+    document.getElementById("searchresults").innerHTML = "";
 }
 
 function defaultDropdownElementCreator(id, item, buttonid) {
