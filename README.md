@@ -9,11 +9,11 @@ Both experienced developers seeking to improve on a particular area or beginners
 Talks are gathered from `db.json`. Copy-pasting should get you the structure:
 ```json
   {
-    "speakers":["sample_speaker", "sample_speaker2"],
-    "title":"",
-    "conference":"CppCon",
-    "year":2020,
-    "link":"https://www.youtube.com/watch?v=",
+    "speakers": ["sample_speaker", "sample_speaker2"],
+    "title": "",
+    "conference": "CppCon",
+    "year": 2020,
+    "link": "https://www.youtube.com/watch?v=",
     "tags": [
       "no-tags-yet"
     ]
