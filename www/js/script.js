@@ -106,19 +106,19 @@ function onSearch() {
   var needsamp = false;
 
   if (queryinfo.speaker != null) {
-    url += 'speaker=' + queryinfo.speaker;
+    url += 'speaker=' + encodeURIComponent(queryinfo.speaker);
     needsamp = true;
   }
   if (queryinfo.conference != null) {
-    url += (needsamp ? '&' : '') + "conference=" + queryinfo.conference;
+    url += (needsamp ? '&' : '') + "conference=" + encodeURIComponent(queryinfo.conference);
     needsamp = true;
   }
   if (queryinfo.year != null) {
-    url += (needsamp ? '&' : '') + "year=" + queryinfo.year;
+    url += (needsamp ? '&' : '') + "year=" + encodeURIComponent(queryinfo.year);
     needsamp = true;
   }
   if (queryinfo.tag != null)
-    url += (needsamp ? '&' : '') + "tags=" + queryinfo.tag;
+    url += (needsamp ? '&' : '') + "tags=" + encodeURIComponent(queryinfo.tag);
   lastqueryinfo = queryinfo;
   jQuery.get(url, function(talks, status) {
     showResults(talks);
