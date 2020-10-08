@@ -54,10 +54,15 @@ function showResults(talks) {
     outerdiv.appendChild(loadThumbnail(talk.link));
     var descdiv = document.createElement("div");
     descdiv.classList.add("ml-3", "align-self-center");
+    var talk_title_html = `<b>${talk.speakers.map(x => x.display_name).join(', ')} - ${talk.title}</b>`;
+    var conference_html = `${talk.conference} - ${talk.year}`;
+    if (talk.slides)
+      conference_html += ` - <a href="${talk.slides}" target="_blank">[slides]</a>`
+    var talk_link_html = `<a href="${talk.link}">${talk.link}</a>`;
     descdiv.innerHTML =
-      `<b>${talk.speakers.map(x => x.display_name).join(', ')} - ${talk.title}</b></br>
-       ${talk.conference} - ${talk.year} </br>
-       <a href="${talk.link}">${talk.link} </br></a>
+      `${talk_title_html}</br>
+       ${conference_html}</br>
+       ${talk_link_html}</br>
        ${getTalkTagHTML(talk.tags)}`
     outerdiv.appendChild(descdiv);
     node.appendChild(outerdiv);

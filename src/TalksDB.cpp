@@ -204,6 +204,7 @@ TalksDB::TalkRef TalksDB::talkRefFromTalk(Talk const& talk)
         *std::lower_bound(this->tags.begin(), this->tags.end(), tag));
 
   ret.title = talk.title;
+  ret.slides = talk.slides;
   ret.year = talk.year;
   ret.link = talk.link;
   return ret;

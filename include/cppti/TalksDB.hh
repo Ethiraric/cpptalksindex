@@ -2,6 +2,7 @@
 #define CPPTI_TALKSDB
 
 #include <functional>
+#include <optional>
 #include <unordered_map>
 
 #include <gsl/span>
@@ -23,6 +24,7 @@ public:
 
     std::vector<Speaker> speakers;
     std::string title;
+    std::optional<std::string> slides;
     std::string_view conference;
     int64_t year;
     std::string link;
@@ -103,6 +105,8 @@ inline void to_json(json& j, cppti::TalksDB::TalkRef const& x)
   j = json::object();
   j["speakers"] = x.speakers;
   j["title"] = x.title;
+  if (x.slides)
+    j["slides"] = *x.slides;
   j["conference"] = x.conference;
   j["year"] = x.year;
   j["link"] = x.link;
