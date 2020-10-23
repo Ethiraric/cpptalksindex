@@ -158,13 +158,12 @@ function updateSpeakerDropdown(speaker, id) {
 }
 
 function speakerDropdownElementCreator(id, speaker, buttonid) {
-  var node = document.createElement("a");
-  node.classList.add("dropdown-item")
+  var node = document.createElement("option");
+
   node.id = `${id}-${speaker.id}`;
-  node.setAttribute("href", "#");
-  node.setAttribute("onclick",
-    `onSpeakerSelection('${speaker.display_name}', '${speaker.id}')`);
   node.innerHTML = speaker.display_name;
+  node.setAttribute("class", "cspeaker");
+
   return node;
 }
 
@@ -189,6 +188,7 @@ window.onload = function() {
       defaultDropdownElementCreator);
     fillDropdown(items.tags, 'tag', 'tag-dropdown',
       defaultDropdownElementCreator);
+    $('.selectpicker').selectpicker('refresh');
   })
 }
 

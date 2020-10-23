@@ -8,3 +8,13 @@ body {
   background: #222222;
   color: white;
 }
+
+.dropdown-menu {
+  background: #343a40 !important;
+  color: white !important;
+}
+
+.cspeaker:hover {
+  background: white !important;
+  color: #343a40 !important;
+}
