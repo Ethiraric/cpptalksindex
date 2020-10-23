@@ -19,3 +19,22 @@ Talks are gathered from `db.json`. Copy-pasting should get you the structure:
     ]
   },
 ```
+
+## Building the server
+Requirements:
+
+  - `cmake` (tested with cmake 3.18.4)
+  - A recent C++ compiler, supporting the C++17 standard (tested with gcc 10.2.0)
+
+Steps:
+
+```sh
+mkdir build && cd build
+cmake .. # -GNinja
+cmake --build . # Or make / ninja
+ln -s ../www . # The server will run fine but 404 if you forget this step
+```
+
+There should be a `bin/cpptalksindex` binary in `build`.
+You can start the server with `./bin/cpptalksindex ../db.json`, which will run the server.
+The server listens on port 8485 (hardcoded in `main.cpp`, should you need to change it).
