@@ -72,8 +72,7 @@ function showResults(talks) {
 // Build the URL, call it and display results.
 function onSearch() {
   var queryinfo = {
-    speaker: document.getElementById('speaker-dropdown').getAttribute(
-      "speaker-id"),
+    speaker: document.getElementById('speaker-dropdown-list').value,
     conference: document.getElementById('conference-dropdown').innerHTML
       .trim(),
     year: document.getElementById('year-dropdown').innerHTML.trim(),
@@ -131,8 +130,8 @@ function onSearch() {
 }
 
 function onClearFilters() {
-    document.getElementById('speaker-dropdown').setAttribute("speaker-id", "Speaker");
-    document.getElementById('speaker-dropdown').innerHTML = "Speaker (Any)";
+    document.getElementById('speaker-dropdown-list').selectedIndex = 0;
+    $('#speaker-dropdown-list').selectpicker('refresh');
     document.getElementById('conference-dropdown').innerHTML = "Conference (Any)";
     document.getElementById('year-dropdown').innerHTML = "Year (Any)";
     document.getElementById('tag-dropdown').innerHTML = "Tag (Any)";
@@ -151,24 +150,18 @@ function defaultDropdownElementCreator(id, item, buttonid) {
   return node;
 }
 
-function updateSpeakerDropdown(speaker, id) {
-  var dropdown = document.getElementById('speaker-dropdown');
-  dropdown.setAttribute("speaker-id", id);
-  dropdown.innerHTML = speaker;
-}
-
 function speakerDropdownElementCreator(id, speaker, buttonid) {
   var node = document.createElement("option");
 
   node.id = `${id}-${speaker.id}`;
   node.innerHTML = speaker.display_name;
+  node.value = speaker.id;
   node.setAttribute("class", "cspeaker");
 
   return node;
 }
 
-function onSpeakerSelection(speaker, id) {
-  updateSpeakerDropdown(speaker, id);
+function onSpeakerSelection() {
   onSearch();
 }
 
@@ -178,6 +171,7 @@ function onDropdownSelection(buttonid, item) {
 }
 
 window.onload = function() {
+  document.getElementById('speaker-dropdown-list').setAttribute('onchange', 'onSpeakerSelection()');
   // Load each dropdown
   jQuery.get('/api/filters', function(items, status) {
     fillDropdown(items.speakers, 'speaker', 'speaker-dropdown',
@@ -191,9 +185,3 @@ window.onload = function() {
     $('.selectpicker').selectpicker('refresh');
   })
 }
-
-$(document).ready(function() {
-  $('#speaker-dropdown-list').children().click(function() {
-    onSearch();
-  });
-});
