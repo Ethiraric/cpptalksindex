@@ -2,12 +2,17 @@ var lastqueryinfo = {};
 
 // Load the dropdown lists.
 // Calls the API to get the data and creates an entry for each item.
-function fillDropdown(items, id, buttonid, element_creator) {
+function fillSelect(items, id, element_creator) {
   for (i = 0; i < items.length; ++i) {
     var item = items[i];
-    var node = element_creator(id, item, buttonid);
-    document.getElementById(`${id}-dropdown-list`).appendChild(node);
+    var node = element_creator(item);
+    document.getElementById(`${id}-select`).appendChild(node);
   }
+}
+
+function setupSelect(item, id, element_creator) {
+  fillSelect(item, id, element_creator);
+  document.getElementById(`${id}-select`).setAttribute('onchange', 'onSearch()');
 }
 
 // Display an error message when clicking on "Search" fails.
@@ -72,20 +77,19 @@ function showResults(talks) {
 // Build the URL, call it and display results.
 function onSearch() {
   var queryinfo = {
-    speaker: document.getElementById('speaker-dropdown-list').value,
-    conference: document.getElementById('conference-dropdown').innerHTML
-      .trim(),
-    year: document.getElementById('year-dropdown').innerHTML.trim(),
-    tag: document.getElementById('tag-dropdown').innerHTML.trim()
+    speaker: document.getElementById('speaker-select').value,
+    conference: document.getElementById('conference-select').value,
+    year: document.getElementById('year-select').value,
+    tag: document.getElementById('tag-select').value
   };
 
-  if (queryinfo.speaker == "Speaker" || queryinfo.speaker == "Speaker (Any)")
+  if (queryinfo.speaker == "Speaker")
     queryinfo.speaker = null;
-  if (queryinfo.conference == "Conference" || queryinfo.conference == "Conference (Any)")
+  if (queryinfo.conference == "Conference")
     queryinfo.conference = null;
-  if (queryinfo.year == "Year" || queryinfo.year == "Year (Any)")
+  if (queryinfo.year == "Year")
     queryinfo.year = null;
-  if (queryinfo.tag == "Tag" || queryinfo.tag == "Tag (Any)")
+  if (queryinfo.tag == "Tag")
     queryinfo.tag = null;
 
   if (JSON.stringify(queryinfo) == JSON.stringify(lastqueryinfo)) {
@@ -130,30 +134,20 @@ function onSearch() {
 }
 
 function onClearFilters() {
-    document.getElementById('speaker-dropdown-list').selectedIndex = 0;
-    $('#speaker-dropdown-list').selectpicker('refresh');
-    document.getElementById('conference-dropdown').innerHTML = "Conference (Any)";
-    document.getElementById('year-dropdown').innerHTML = "Year (Any)";
-    document.getElementById('tag-dropdown').innerHTML = "Tag (Any)";
+    document.getElementById('speaker-select').selectedIndex = 0;
+    document.getElementById('conference-select').selectedIndex = 0;
+    document.getElementById('year-select').selectedIndex = 0;
+    document.getElementById('tag-select').selectedIndex = 0;
+    $('#searchfilters').find('.selectpicker').selectpicker('refresh');
+
     document.getElementById("searchresults").innerHTML = "";
     lastqueryinfo = null;
     setFilterError("");
 }
 
-function defaultDropdownElementCreator(id, item, buttonid) {
-  var node = document.createElement("a");
-  node.classList.add("dropdown-item")
-  node.id = `${id}-${item}`;
-  node.setAttribute("href", "#");
-  node.setAttribute("onclick", `onDropdownSelection("${buttonid}", "${item}")`);
-  node.innerHTML = item;
-  return node;
-}
-
-function speakerDropdownElementCreator(id, speaker, buttonid) {
+function speakerDropdownElementCreator(speaker) {
   var node = document.createElement("option");
 
-  node.id = `${id}-${speaker.id}`;
   node.innerHTML = speaker.display_name;
   node.value = speaker.id;
   node.setAttribute("class", "cspeaker");
@@ -161,27 +155,22 @@ function speakerDropdownElementCreator(id, speaker, buttonid) {
   return node;
 }
 
-function onSpeakerSelection() {
-  onSearch();
-}
+function defaultOptionElementCreator(item) {
+  var node = document.createElement("option");
 
-function onDropdownSelection(buttonid, item) {
-  document.getElementById(buttonid).innerHTML = item;
-  onSearch();
+  node.innerHTML = item;
+  node.value = item;
+  node.setAttribute("class", "cspeaker");
+  return node;
 }
 
 window.onload = function() {
-  document.getElementById('speaker-dropdown-list').setAttribute('onchange', 'onSpeakerSelection()');
   // Load each dropdown
   jQuery.get('/api/filters', function(items, status) {
-    fillDropdown(items.speakers, 'speaker', 'speaker-dropdown',
-      speakerDropdownElementCreator);
-    fillDropdown(items.conferences, 'conference', 'conference-dropdown',
-      defaultDropdownElementCreator);
-    fillDropdown(items.years, 'year', 'year-dropdown',
-      defaultDropdownElementCreator);
-    fillDropdown(items.tags, 'tag', 'tag-dropdown',
-      defaultDropdownElementCreator);
-    $('.selectpicker').selectpicker('refresh');
+    setupSelect(items.speakers, 'speaker', speakerDropdownElementCreator);
+    setupSelect(items.conferences, 'conference', defaultOptionElementCreator);
+    setupSelect(items.years, 'year', defaultOptionElementCreator);
+    setupSelect(items.tags, 'tag', defaultOptionElementCreator);
+    $('#searchfilters').find('.selectpicker').selectpicker('refresh');
   })
 }
