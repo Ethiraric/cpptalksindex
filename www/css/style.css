@@ -18,3 +18,8 @@ body {
   background: white !important;
   color: #343a40 !important;
 }
+
+.bootstrap-select .no-results {
+  background: #343a40;
+  color: white;
+}
