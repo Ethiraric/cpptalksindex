@@ -2,17 +2,14 @@ var lastqueryinfo = {};
 
 // Load the dropdown lists.
 // Calls the API to get the data and creates an entry for each item.
-function fillSelect(items, id, element_creator) {
+function setupSelect(items, id, element_creator) {
+  select = document.getElementById(`${id}-select`)
   for (i = 0; i < items.length; ++i) {
     var item = items[i];
     var node = element_creator(item);
-    document.getElementById(`${id}-select`).appendChild(node);
+    select.appendChild(node);
   }
-}
-
-function setupSelect(item, id, element_creator) {
-  fillSelect(item, id, element_creator);
-  document.getElementById(`${id}-select`).setAttribute('onchange', 'onSearch()');
+  select.setAttribute('onchange', 'onSearch()');
 }
 
 // Display an error message when clicking on "Search" fails.
