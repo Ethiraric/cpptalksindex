@@ -129,7 +129,8 @@
     "year": 2019,
     "link": "https://www.youtube.com/watch?v=KNqRjzSlUVo",
     "tags": [
-      "no-tags-yet"
+      "ranges",
+      "c++-internals"
     ]
   },
   {
@@ -139,7 +140,8 @@
     "year": 2019,
     "link": "https://www.youtube.com/watch?v=g-F280_AQp8",
     "tags": [
-      "no-tags-yet"
+      "ranges",
+      "c++-internals"
     ]
   },
   {
@@ -150,7 +152,8 @@
     "year": 2019,
     "link": "https://www.youtube.com/watch?v=CKCR5eFVrmc",
     "tags": [
-      "no-tags-yet"
+      "code-architecture",
+      "clean-code"
     ]
   },
   {
@@ -161,7 +164,9 @@
     "year": 2019,
     "link": "https://www.youtube.com/watch?v=WoRmXjVxuFQ",
     "tags": [
-      "no-tags-yet"
+      "tooling",
+      "debugging",
+      "unix"
     ]
   },
   {
@@ -172,7 +177,8 @@
     "year": 2019,
     "link": "https://www.youtube.com/watch?v=ZxWjii99yao",
     "tags": [
-      "no-tags-yet"
+      "c++-internals",
+      "performance"
      ]
   },
   {
@@ -183,7 +189,8 @@
     "year": 2019,
     "link": "https://www.youtube.com/watch?v=SYLgG7Q5Zws",
     "tags": [
-      "no-tags-yet"
+      "ranges",
+      "introductory"
     ]
   },
   {
@@ -194,7 +201,8 @@
     "year": 2019,
     "link": "https://www.youtube.com/watch?v=St0MNEU5b0o",
     "tags": [
-      "no-tags-yet"
+      "introductory",
+      "c++-internals"
     ]
   },
   {
@@ -205,7 +213,8 @@
     "year": 2019,
     "link": "https://www.youtube.com/watch?v=pIzaZbKUw2s",
     "tags": [
-      "no-tags-yet"
+      "introductory",
+      "c++-internals"
     ]
   },
   {
@@ -215,7 +224,7 @@
     "year": 2019,
     "link": "https://www.youtube.com/watch?v=WRQ1xqYBKgc",
     "tags": [
-      "no-tags-yet"
+      "clean-code"
     ]
   },
   {
